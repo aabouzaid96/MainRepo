@@ -1,16 +1,17 @@
-name: Deploy Django App to AWS
+name: Deploy Django App to AWS (Dev)
 
 on:
   push:
     branches:
-      - main  # Trigger deployment on pushes to the main branch
+      - main
 
 env:
-  ENVIRONMENT: dev  # Set the environment variable for clarity
+  ENVIRONMENT: dev
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: dev
 
     steps:
     - name: Checkout code
@@ -19,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.9'
 
     - name: Export database credentials
       run: |
@@ -37,3 +38,15 @@ jobs:
     - name: Run migrations
       run: |
         python manage.py migrate
+
+    - name: Restart Gunicorn on EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
+          sudo systemctl restart gunicorn
+        EOF
+
+    - name: Restart Nginx on EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
+          sudo systemctl restart nginx
+        EOF
