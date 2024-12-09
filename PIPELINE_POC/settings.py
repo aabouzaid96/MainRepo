@@ -8,6 +8,7 @@ ALLOWED_HOSTS = ['*']
 ROOT_URLCONF = 'PIPELINE_POC.urls'
 DEBUG = True
 SECRET_KEY = ')in4_vc0h2*29pq=4zvp!)f7+bjgs38&3e+cei$%=4zvphaez&'
+AUTH_USER_MODEL = 'accounts.User'
 
 
 INSTALLED_APPS = [
@@ -19,7 +20,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # For REST APIs
+
     'accounts',
+    'Repo-A.add_users',
+    'Repo-B.delete_users',
+
 ]
 
 MIDDLEWARE = [
@@ -31,14 +36,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+from decouple import config
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Database backend for PostgreSQL
-        'NAME': 'pipeline_POC',  # Replace with your database name
-        'USER': 'postgres',  # Replace with your database username
-        'PASSWORD': 'postgres',  # Replace with your database password
-        'HOST': 'localhost',  # Database host (use 'localhost' for local DB)
-        'PORT': '5432',  # Default PostgreSQL port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
