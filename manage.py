@@ -2,10 +2,15 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from pathlib import Path
 
 
 def main():
     """Run administrative tasks."""
+    # Dynamically add the root directory to PYTHONPATH
+    BASE_DIR = Path(__file__).resolve().parent
+    sys.path.append(str(BASE_DIR))  # Add MainRepo to the path
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PIPELINE_POC.settings')
     try:
         from django.core.management import execute_from_command_line
