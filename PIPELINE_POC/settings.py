@@ -3,8 +3,6 @@ import sys
 
 from pathlib import Path
 
-from tutorial.settings import BASE_DIR
-
 
 ALLOWED_HOSTS = ['*']
 ROOT_URLCONF = 'PIPELINE_POC.urls'
@@ -13,6 +11,7 @@ SECRET_KEY = ')in4_vc0h2*29pq=4zvp!)f7+bjgs38&3e+cei$%=4zvphaez&'
 AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Add RepoA and RepoB to the Python path
