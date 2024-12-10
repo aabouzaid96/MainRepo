@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'RepoA.add_users',
+    # 'RepoA.add_users',
     'RepoB.delete_users',
 ]
 
