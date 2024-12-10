@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'RepoA',
+    # 'RepoA',
     'RepoB',
 ]
 
