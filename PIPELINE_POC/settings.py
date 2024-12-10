@@ -12,7 +12,6 @@ DEBUG = True
 SECRET_KEY = ')in4_vc0h2*29pq=4zvp!)f7+bjgs38&3e+cei$%=4zvphaez&'
 AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
-BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 
 
@@ -31,8 +30,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'add_users',
-    'delete_users',
+    'Repo-A.add_users',
+    'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
