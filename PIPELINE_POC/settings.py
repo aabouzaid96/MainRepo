@@ -14,6 +14,15 @@ STATIC_URL = '/static/'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+PATH_TO_YOUR_STATIC_FOLDER='man/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "RepoA",
+    BASE_DIR / "RepoB",
+    PATH_TO_YOUR_STATIC_FOLDER,
+]
+
+
 # Add RepoA and RepoB to the Python path
 sys.path.append(str(BASE_DIR / "RepoA"))
 sys.path.append(str(BASE_DIR / "RepoB"))
