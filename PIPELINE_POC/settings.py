@@ -31,8 +31,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'add_users',
-    'delete_users',
+    'Repo-A.add_users',
+    'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
