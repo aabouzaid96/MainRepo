@@ -7,8 +7,8 @@ on:
 
     paths:
       - '**'  # Trigger deployment for changes in any file in the current repository
-      - 'Repo-A/**'  # Trigger deployment if files in Repo-A are changed
-      - 'Repo-B/**'  # Trigger deployment if files in Repo-B are changed
+      - '../../RepoA/**'  # Trigger deployment if files in RepoA are changed
+      - '../../RepoB/**'  # Trigger deployment if files in RepoB are changed
 env:
   ENVIRONMENT: dev
 

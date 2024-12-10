@@ -15,9 +15,13 @@ AUTH_USER_MODEL = 'accounts.User'
 STATIC_URL = '/static/'
 
 
-# Add Repo-A and Repo-B to the Python path
-sys.path.append(str(BASE_DIR / "Repo-A"))
-sys.path.append(str(BASE_DIR / "Repo-B"))
+# Add RepoA and RepoB to the Python path
+sys.path.append(str(BASE_DIR / "RepoA"))
+sys.path.append(str(BASE_DIR / "RepoB"))
+
+
+sys.modules['RepoA'] = __import__('RepoA')
+sys.modules['RepoB'] = __import__('RepoB')
 
 INSTALLED_APPS = [
     # other apps
@@ -30,8 +34,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'Repo-A.add_users',
-    'Repo-B.delete_users',
+    'RepoA',
+    'RepoB',
 ]
 
 MIDDLEWARE = [
