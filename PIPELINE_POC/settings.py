@@ -9,8 +9,8 @@ ROOT_URLCONF = 'PIPELINE_POC.urls'
 DEBUG = True
 SECRET_KEY = ')in4_vc0h2*29pq=4zvp!)f7+bjgs38&3e+cei$%=4zvphaez&'
 AUTH_USER_MODEL = 'accounts.User'
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'RepoA',
-    'RepoB',
+    'RepoA.add_users',
+    'RepoB.delete_users',
 ]
 
 MIDDLEWARE = [
