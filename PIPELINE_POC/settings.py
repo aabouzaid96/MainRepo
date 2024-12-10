@@ -17,8 +17,8 @@ STATIC_URL = '/static/'
 
 
 # Add Repo-A and Repo-B to the Python path
-sys.path.append(os.path.join(BASE_DIR, 'Repo-A'))
-sys.path.append(os.path.join(BASE_DIR, 'Repo-B'))
+sys.path.append(str(BASE_DIR / "Repo-A"))
+sys.path.append(str(BASE_DIR / "Repo-B"))
 
 INSTALLED_APPS = [
     # other apps
@@ -31,8 +31,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    'Repo-A.add_users',
-    'Repo-B.delete_users',
+    'add_users',
+    'delete_users',
 ]
 
 MIDDLEWARE = [
