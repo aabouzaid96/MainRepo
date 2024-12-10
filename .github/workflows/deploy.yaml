@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+    paths:
+      - '**'  # Trigger deployment for changes in any file in the current repository
+      - 'Repo-A/**'  # Trigger deployment if files in Repo-A are changed
+      - 'Repo-B/**'  # Trigger deployment if files in Repo-B are changed
 env:
   ENVIRONMENT: dev
 
@@ -53,34 +57,42 @@ jobs:
           # Navigate to the project directory
           cd /home/ubuntu/MainRepo
 
-          # Ensure the latest code is pulled
-          git reset --hard  # Remove any local changes
-          git pull origin main  # Pull the latest changes
+          # Ensure MainRepo is up to date
+          git reset --hard
+          git pull origin main
 
-          # Activate the virtual environment
+          # Clone or update Repo-A
+          if [ -d "Repo-A" ]; then
+              cd Repo-A
+              git reset --hard
+              git pull origin main
+              cd ..
+          else
+              git clone git@github.com:<your-username>/Repo-A.git
+          fi
+
+          # Clone or update Repo-B
+          if [ -d "Repo-B" ]; then
+              cd Repo-B
+              git reset --hard
+              git pull origin main
+              cd ..
+          else
+              git clone git@github.com:<your-username>/Repo-B.git
+          fi
+
+          # Activate virtual environment
           source venv/bin/activate
 
           # Install dependencies
           pip install -r requirements.txt
 
-          # Run Django migrations
+          # Run migrations
           python manage.py migrate
 
-          # Restart Gunicorn to apply changes
+          # Restart Gunicorn
           sudo systemctl restart gunicorn
 
-          # Restart Nginx for static and media changes
+          # Restart Nginx
           sudo systemctl restart nginx
         EOF
-
-#    - name: Restart Gunicorn on EC2
-#      run: |
-#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-#          sudo systemctl restart gunicorn
-#        EOF
-#
-#    - name: Restart Nginx on EC2
-#      run: |
-#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-#          sudo systemctl restart nginx
-#        EOF
