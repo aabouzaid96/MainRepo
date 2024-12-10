@@ -20,9 +20,6 @@ sys.path.append(str(BASE_DIR / "RepoA"))
 sys.path.append(str(BASE_DIR / "RepoB"))
 
 
-sys.modules['RepoA'] = __import__('RepoA')
-sys.modules['RepoB'] = __import__('RepoB')
-
 INSTALLED_APPS = [
     # other apps
     'django.contrib.admin',  # Required for the admin interface
