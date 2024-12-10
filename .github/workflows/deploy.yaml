@@ -41,10 +41,10 @@ jobs:
 
     - name: Run migrations
       run: |
-        echo "PYTHONPATH: $PYTHONPATH"  # Debug Python path
-        python manage.py check         # Verify Django setup
-        python manage.py makemigrations add_users delete_users  # Generate migrations for specific apps
-        python manage.py migrate       # Apply migrations to the database
+        export PYTHONPATH=$PYTHONPATH:/home/runner/work/MainRepo/MainRepo/Repo-A:/home/runner/work/MainRepo/MainRepo/Repo-B
+        python manage.py check
+        python manage.py makemigrations add_users delete_users
+        python manage.py migrate
 
     - name: Add SSH Key
       run: |
