@@ -45,14 +45,42 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
 
-    - name: Restart Gunicorn on EC2
+    - name: Deploy to EC2
       run: |
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-          sudo systemctl restart gunicorn
-        EOF
+          set -e
 
-    - name: Restart Nginx on EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
+          # Navigate to the project directory
+          cd /home/ubuntu/MainRepo
+
+          # Ensure the latest code is pulled
+          git reset --hard  # Remove any local changes
+          git pull origin main  # Pull the latest changes
+
+          # Activate the virtual environment
+          source venv/bin/activate
+
+          # Install dependencies
+          pip install -r requirements.txt
+
+          # Run Django migrations
+          python manage.py migrate
+
+          # Restart Gunicorn to apply changes
+          sudo systemctl restart gunicorn
+
+          # Restart Nginx for static and media changes
           sudo systemctl restart nginx
         EOF
+
+#    - name: Restart Gunicorn on EC2
+#      run: |
+#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
+#          sudo systemctl restart gunicorn
+#        EOF
+#
+#    - name: Restart Nginx on EC2
+#      run: |
+#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
+#          sudo systemctl restart nginx
+#        EOF
