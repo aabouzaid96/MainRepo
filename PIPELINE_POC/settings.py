@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'accounts',
     # 'RepoA.add_users',
-    'RepoB.delete_users',
+    # 'RepoB.delete_users',
 ]
 
 MIDDLEWARE = [
