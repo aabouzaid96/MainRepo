@@ -3,30 +3,22 @@ import sys
 
 from pathlib import Path
 
+from tutorial.settings import BASE_DIR
+
 
 ALLOWED_HOSTS = ['*']
 ROOT_URLCONF = 'PIPELINE_POC.urls'
 DEBUG = True
 SECRET_KEY = ')in4_vc0h2*29pq=4zvp!)f7+bjgs38&3e+cei$%=4zvphaez&'
 AUTH_USER_MODEL = 'accounts.User'
+# Static files (CSS, JavaScript, Images)
+BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
-PATH_TO_YOUR_STATIC_FOLDER='man/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "RepoA",
-    BASE_DIR / "RepoB",
-    PATH_TO_YOUR_STATIC_FOLDER,
-]
-
-
-# Add RepoA and RepoB to the Python path
-sys.path.append(str(BASE_DIR / "RepoA"))
-sys.path.append(str(BASE_DIR / "RepoB"))
-
+# Add Repo-A and Repo-B to the Python path
+sys.path.append(str(BASE_DIR / "Repo-A"))
+sys.path.append(str(BASE_DIR / "Repo-B"))
 
 INSTALLED_APPS = [
     # other apps
@@ -39,8 +31,8 @@ INSTALLED_APPS = [
     'rest_framework',  # For REST APIs
 
     'accounts',
-    # 'RepoA.add_users',
-    # 'RepoB.delete_users',
+    # 'Repo-A.add_users',
+    # 'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
@@ -80,5 +72,3 @@ TEMPLATES = [
         },
     },
 ]
-
-
