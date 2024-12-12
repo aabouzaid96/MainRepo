@@ -5,5 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('accounts.urls')),  # Add the accounts app URLs
     # path('api/', include('RepoA.add_users.urls')),
-    path('api/', include('RepoB.delete_users.urls')),
+    # path('api/', include('RepoB.delete_users.urls')),
 ]
