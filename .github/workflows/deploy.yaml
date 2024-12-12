@@ -2,14 +2,8 @@ name: Deploy Django App to AWS (Dev)
 
 on:
   push:
-    branches-ignore:
-      - main  # Exclude the main branch
-    paths:
-      - '**'  # Trigger for any changes in the repository
-
-  pull_request:
-    branches-ignore:
-      - main  # Exclude pull requests targeting the main branch
+    branches:
+      - main
 
     paths:
       - '**'  # Trigger deployment for changes in any file in the current repository
