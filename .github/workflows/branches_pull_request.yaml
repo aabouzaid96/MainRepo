@@ -1,0 +1,48 @@
+name: CI for Django App
+
+on:
+  push:
+    branches-ignore:
+      - main  # Exclude the main branch
+    paths:
+      - '**'  # Trigger for any changes in the repository
+
+  pull_request:
+    branches-ignore:
+      - main  # Exclude pull requests targeting the main branch
+    paths:
+      - '**'
+
+env:
+  ENVIRONMENT: dev
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Export database credentials
+        run: |
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        run: |
+          python manage.py test
