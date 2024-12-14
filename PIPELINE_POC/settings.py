@@ -17,7 +17,7 @@ STATIC_URL = '/static/'
 
 
 # Add Repo-A and Repo-B to the Python path
-sys.path.append(str(BASE_DIR / "Repo-A"))
+sys.path.append(str(BASE_DIR / "repoa"))
 sys.path.append(str(BASE_DIR / "Repo-B"))
 
 INSTALLED_APPS = [
@@ -29,10 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # For REST APIs
-
+    'add_users',
+    'add_user_api',
     'accounts',
-    # 'Repo-A.add_users',
-    # 'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
