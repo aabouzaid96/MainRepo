@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # For REST APIs
     'add_users',
-    'add_user_api',
     'accounts',
 ]
 
