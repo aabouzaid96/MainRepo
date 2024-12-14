@@ -29,10 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # For REST APIs
-
+    'add_users',
+    'add_user_api',
     'accounts',
-     'repoa.add_users',
-    # 'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
