@@ -17,8 +17,8 @@ STATIC_URL = '/static/'
 
 
 # Add Repo-A and Repo-B to the Python path
-sys.path.append(str(BASE_DIR / "RepoA"))
-sys.path.append(str(BASE_DIR / "RepoB"))
+sys.path.append(str(BASE_DIR / "Repo-A"))
+sys.path.append(str(BASE_DIR / "Repo-B"))
 
 INSTALLED_APPS = [
     # other apps
@@ -29,8 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # For REST APIs
-    'add_users',
+
     'accounts',
+    # 'Repo-A.add_users',
+    # 'Repo-B.delete_users',
 ]
 
 MIDDLEWARE = [
@@ -47,11 +49,11 @@ from decouple import config
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pipeline_poc',  # Database name
-        'USER': 'admin',      # Username
-        'PASSWORD': 'adminAWS',  # Password
-        'HOST': '127.0.0.1',     # Host (IP or DNS)
-        'PORT': '5432',          # Port
+        'NAME': config('DB_NAME', default='pipeline_poc'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default='postgresAWS0'),
+        'HOST': config('DB_HOST', default='172.31.37.63'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
