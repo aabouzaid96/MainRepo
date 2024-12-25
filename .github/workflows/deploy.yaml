@@ -68,26 +68,26 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
             set -e
-
+  
             # Navigate to the project directory
             cd /home/ubuntu/MainRepo
-
+  
             # Ensure the latest code is pulled
             git reset --hard  # Remove any local changes
             git pull origin main  # Pull the latest changes
-
+  
             # Activate the virtual environment
             source venv/bin/activate
-
+  
             # Install dependencies
             pip install -r requirements.txt
-
+  
             # Run Django migrations
             python manage.py migrate
-
+  
             # Restart Gunicorn to apply changes
             sudo systemctl restart gunicorn
-
+  
             # Restart Nginx for static and media changes
             sudo systemctl restart nginx
           EOF
