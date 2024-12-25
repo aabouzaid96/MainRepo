@@ -48,8 +48,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pipeline_poc',  # Database name
-        'USER': 'postgres',      # Username
-        'PASSWORD': 'postgresAWS0',  # Password
+        'USER': 'admin',      # Username
+        'PASSWORD': 'adminAWS',  # Password
         'HOST': '127.0.0.1',     # Host (IP or DNS)
         'PORT': '5432',          # Port
     }
