@@ -40,7 +40,8 @@ jobs:
 
       - name: Clone Repo A
         run: |
-          git clone https://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@github.com/aabouzaid96/RepoA.git
+          git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/aabouzaid96/RepoA.git
+
 
       - name: Install Dependencies
         run: |
