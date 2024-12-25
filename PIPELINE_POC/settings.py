@@ -47,11 +47,11 @@ from decouple import config
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='pipeline_poc'),  # Database name
-        'USER': config('DB_USER', default='postgres'),      # Username
-        'PASSWORD': config('DB_PASSWORD', default='postgresAWS0'),  # Password
-        'HOST': config('DB_HOST', default='127.0.0.1'),     # Host (IP or DNS)
-        'PORT': config('DB_PORT', default='5432'),          # Port
+        'NAME': 'pipeline_poc',  # Database name
+        'USER': 'postgres',      # Username
+        'PASSWORD': 'postgresAWS0',  # Password
+        'HOST': '127.0.0.1',     # Host (IP or DNS)
+        'PORT': '5432',          # Port
     }
 }
 
