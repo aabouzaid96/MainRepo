@@ -1,14 +1,23 @@
 import psycopg2
 from PIPELINE_POC.settings import DATABASES
 
+
 def get_connection():
+    """
+    Establishes a connection to the PostgreSQL database using settings from DATABASES['default'].
+
+    Returns:
+        connection (psycopg2.extensions.connection): Database connection object if successful.
+        None: If the connection fails.
+    """
     try:
+        # Extract database configuration from Django settings
         db_config = DATABASES['default']
 
-        print('db_config[HOST]', db_config['HOST'])
-        print('db_config[PORT]', db_config['PORT'])
-        print('db_config[USER]', db_config['USER'])
-        print('db_config[NAME]', db_config['NAME'])
+        # Debugging logs (can be removed in production)
+        print(f"Connecting to database: host={db_config['HOST']}, port={db_config['PORT']}")
+
+        # Connect to the database
         connection = psycopg2.connect(
             host=db_config['HOST'],
             port=db_config['PORT'],
@@ -16,8 +25,12 @@ def get_connection():
             password=db_config['PASSWORD'],
             database=db_config['NAME']
         )
+
+        # Log success
         print("Database connection successful")
         return connection
+
     except Exception as e:
-        print(f"Error connecting to the database: {e}")
+        # Log the error with details
+        print(f"Error connecting to the database: {type(e).__name__}: {e}")
         return None
