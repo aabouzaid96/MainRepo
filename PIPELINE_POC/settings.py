@@ -17,8 +17,8 @@ STATIC_URL = '/static/'
 
 
 # Add Repo-A and Repo-B to the Python path
-sys.path.append(str(BASE_DIR / "repoa"))
-sys.path.append(str(BASE_DIR / "Repo-B"))
+sys.path.append(str(BASE_DIR / "RepoA"))
+sys.path.append(str(BASE_DIR / "RepoB"))
 
 INSTALLED_APPS = [
     # other apps
