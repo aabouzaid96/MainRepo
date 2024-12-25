@@ -50,7 +50,7 @@ DATABASES = {
         'NAME': config('DB_NAME', default='pipeline_poc'),  # Database name
         'USER': config('DB_USER', default='postgres'),      # Username
         'PASSWORD': config('DB_PASSWORD', default='postgresAWS0'),  # Password
-        'HOST': config('DB_HOST', default='localhost'),     # Host (IP or DNS)
+        'HOST': config('DB_HOST', default='127.0.0.1'),     # Host (IP or DNS)
         'PORT': config('DB_PORT', default='5432'),          # Port
     }
 }
