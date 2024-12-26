@@ -9,6 +9,8 @@ on:
       - 'Repo-A/**'  # Trigger deployment if files in Repo-A are changed
       - 'Repo-B/**'  # Trigger deployment if files in Repo-B are changed
 
+  workflow_dispatch:  # Add this trigger
+
 env:
   ENVIRONMENT: dev
 
