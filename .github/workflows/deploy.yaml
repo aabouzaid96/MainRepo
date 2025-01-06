@@ -78,10 +78,10 @@ jobs:
         run: |
           scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r RepoA ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo/RepoA
 
-      # Step 8: Copy MainRepo to EC2 Server
-      - name: Copy MainRepo to EC2 Server
-        run: |
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r . ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo
+#      # Step 8: Copy MainRepo to EC2 Server
+#      - name: Copy MainRepo to EC2 Server
+#        run: |
+#          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r . ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo
 
       - name: Deploy to EC2
         run: |
