@@ -5,11 +5,11 @@ on:
     branches:
       - main
     paths:
-      - '**'  # Trigger deployment for changes in any file in the current repository
-      - 'Repo-A/**'  # Trigger deployment if files in Repo-A are changed
-      - 'Repo-B/**'  # Trigger deployment if files in Repo-B are changed
+      - '**'
+      - 'RepoA/**'
+      - 'RepoB/**'
 
-  workflow_dispatch:  # Add this trigger
+  workflow_dispatch:
 
 env:
   ENVIRONMENT: dev
@@ -36,35 +36,12 @@ jobs:
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
 
-      - name: Clone Repo A
-        run: |
-          git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/aabouzaid96/RepoA.git
-
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip setuptools wheel
-
       - name: Build Repo A
         run: |
           cd RepoA
           python setup.py sdist
-          pip install ./dist/repoa-0.1.tar.gz
+          ls ./dist  # Debug to ensure the dist package is created
           cd ../
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run migrations
-        run: |
-          python manage.py migrate
-
-      - name: Add SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to EC2
         run: |
@@ -73,43 +50,29 @@ jobs:
 
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
             set -e
-  
-            # Navigate to the project directory
-            cd /home/ubuntu/MainRepo
-  
-            # Ensure the latest code is pulled
-            git reset --hard  # Remove any local changes
-            git pull origin main  # Pull the latest changes
-  
-            # Activate the virtual environment
-            source venv/bin/activate
             
+            # Navigate to MainRepo
+            cd /home/ubuntu/MainRepo
+            
+            # Pull latest changes
+            git reset --hard
+            git pull origin main
+            
+            # Activate virtual environment
+            source venv/bin/activate
+
             # Install RepoA package
             cd /home/ubuntu/RepoA/dist
             pip install ./*.tar.gz
-          
-            # Install dependencies
+
+            # Install other dependencies
             cd /home/ubuntu/MainRepo
             pip install -r requirements.txt
-  
-            # Run Django migrations
+
+            # Apply migrations
             python manage.py migrate
-  
-            # Restart Gunicorn to apply changes
+
+            # Restart services
             sudo systemctl restart gunicorn
-  
-            # Restart Nginx for static and media changes
             sudo systemctl restart nginx
           EOF
-
-#    - name: Restart Gunicorn on EC2
-#      run: |
-#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-#          sudo systemctl restart gunicorn
-#        EOF
-#
-#    - name: Restart Nginx on EC2
-#      run: |
-#        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-#          sudo systemctl restart nginx
-#        EOF
