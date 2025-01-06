@@ -38,6 +38,7 @@ jobs:
 
       - name: Clone Repo A
         run: |
+          ls
           cd MainRepo
           git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/aabouzaid96/RepoA.git
 
