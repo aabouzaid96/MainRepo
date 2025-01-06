@@ -68,6 +68,9 @@ jobs:
 
       - name: Deploy to EC2
         run: |
+          # Copy the RepoA dist package to the server
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./RepoA/dist/*.tar.gz ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/RepoA/dist/
+
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
             set -e
   
@@ -80,8 +83,13 @@ jobs:
   
             # Activate the virtual environment
             source venv/bin/activate
-  
+            
+            # Install RepoA package
+            cd /home/ubuntu/RepoA/dist
+            pip install ./*.tar.gz
+          
             # Install dependencies
+            cd /home/ubuntu/MainRepo
             pip install -r requirements.txt
   
             # Run Django migrations
