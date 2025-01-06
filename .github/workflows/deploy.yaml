@@ -66,11 +66,22 @@ jobs:
         run: |
           python manage.py migrate
 
+      # Step 6: Add SSH Key
       - name: Add SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+      # Step 7: Copy RepoA to EC2 Server
+      - name: Copy RepoA to EC2 Server
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r RepoA ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo/RepoA
+
+      # Step 8: Copy MainRepo to EC2 Server
+      - name: Copy MainRepo to EC2 Server
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r . ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo
 
       - name: Deploy to EC2
         run: |
