@@ -36,6 +36,12 @@ jobs:
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> $GITHUB_ENV
 
+      - name: Debug Workspace
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Contents of current directory:"
+          ls -la
+
       - name: Clone Repo A
         run: |
           git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/aabouzaid96/RepoA.git
