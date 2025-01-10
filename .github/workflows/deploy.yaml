@@ -76,7 +76,7 @@ jobs:
       # Step 7: Copy RepoA to EC2 Server
       - name: Copy RepoA to EC2 Server
         run: |
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r MainRepo/RepoA ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo/RepoA  
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa -r RepoA ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/MainRepo/RepoA  
 
 #      # Step 8: Copy MainRepo to EC2 Server
 #      - name: Copy MainRepo to EC2 Server
