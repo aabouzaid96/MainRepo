@@ -39,4 +39,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 def sample_view(request):
-    return JsonResponse({"message": "Hello from Main Repo, Demo day"})
+    return JsonResponse({"message": "Hello from Main Repo, Demo day"}) .
